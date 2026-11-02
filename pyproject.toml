@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=65.5.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "neurowires"
+version = "0.1.0"
+description = "Dynamic network simulation framework"
+readme = "README.md"
+dependencies = [
+    "numpy>=1.26.2"
+]
+requires-python = ">=3.10.11"
+authors = [
+    { name = "Yinhao Xu", email = "yinhao.xu@sydney.edu.au"}
+]
+licence = "BSD-3-Clause"
+keywords = ["neuromorphic", "nanowire network"]
+classifier = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python"
+]
+
+[project.optional-dependencies]
+progressbar = [
+    "tqdm"
+]
+examples = [
+    "matplotlib"
+]
+
+[project.urls]
+Repository = "https://github.com/xvyh/neurowires.git"
