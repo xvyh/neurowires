@@ -47,14 +47,21 @@ See [`simple_simulation.py`](./examples/simple_simulation.py) for a working exam
 The topology of all dynamical networks are abstracted into graphs of nodes and edges.
 Following the terminology of memristive networks, the edges are weighted by their associated "conductances" $g$, which varies dynamically dependent on an internal state parameter "flux" $x$.
 
-Mathematically, let $\mathbf{r}_{\rm in}$ be the input signal, and $\mathbf{r}$ the network node values. Let the network node value update be governed by some matrix $M$ such that 
-$$ \mathbf{r} = M \mathbf{r}_{\rm in}.$$
+Mathematically, let $\mathbf{r}\_{\rm in}$ be the input signal, and $\mathbf{r}$ the network node values. Let the network node value update be governed by some matrix $M$ such that 
+
+$$\mathbf{r} = M \mathbf{r}\_{\rm in}.$$
+
 In a electrical circuit, the edge values $\mathbf{v}$ can be computed directly from $\mathbf{r}$ via the networks incidence matrix $B$,
-$$ \mathbf{v} = B^\top \mathbf{r}.$$
-This $M$ matrix varies dynamically in time according to the conductances $\mathbf{g}$ on every edge in the network, which in turn depends on $\mathbf{x}$ and $\mathbf{v}$, 
-$$ g = g(x,v).$$
+
+$$\mathbf{v} = B^\top \mathbf{r}.$$
+
+This $M$ matrix varies dynamically in time according to the conductances $\mathbf{g}$ on every edge in the network, which in turn depends on $\mathbf{x}$ and $\mathbf{v}$,
+
+$$g = g(x,v).$$
+
 The flux parameter $x$ follows some differential equation $f(x,v)$, 
-$$ \frac{dx}{dt} = f(x,v).$$
+
+$$\frac{dx}{dt} = f(x,v).$$
 
 ## Code abstraction
 
