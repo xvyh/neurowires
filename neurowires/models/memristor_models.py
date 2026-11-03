@@ -198,11 +198,16 @@ class FluxThresholdIntegrator(FluxModel):
             self,
             vset:float  = 0.01,
             vreset:float= 0.005,
-            boost:float = 10.0
+            boost:float = 10.0,
+            noise:StochModel | None = None
         ) -> None:
         self.vset   = vset 
         self.vreset = vreset
         self.boost  = boost
+        if self.noise:
+            self.get_flux_change = self._get_flux_change_stoch
+        else:
+            self.get_flux_change = self._get_flux_change
 
     def configure(
         self,
@@ -210,7 +215,22 @@ class FluxThresholdIntegrator(FluxModel):
         ) -> None:
         self._param = param
 
-    def get_flux_change(
+    def _get_flux_change_stoch(
+        self,
+        flux:NDArray[np.float64],
+        edgeval:NDArray[np.float64],
+        ) -> NDArray[np.float64]:
+        dflux = (abs(edgeval) > self.vset) *\
+                (abs(edgeval) - self.vset) *\
+                np.sign(edgeval) 
+        dflux = dflux + \
+                (abs(edgeval) < self.vreset) *\
+                (abs(edgeval) - self.vreset) *\
+                np.sign(flux) * self.boost
+        dflux += self.noise.sample()
+        return dflux
+    
+    def _get_flux_change(
         self,
         flux:NDArray[np.float64],
         edgeval:NDArray[np.float64],
